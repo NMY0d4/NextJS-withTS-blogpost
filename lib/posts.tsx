@@ -46,6 +46,7 @@ export async function getPostData(id: string) {
 
   const contentHtml = processedContent.toString();
 
+
   const blogPostWithHTML: BlogPost & { contentHtml: string } = {
     id,
     title: matterResult.data.title,
