@@ -5,14 +5,24 @@ import getFormattedDate from '@/lib/getFormattedDate';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 
+export function generateStaticParams() {
+  const posts = getSortedPostsData(); // deduped
+
+  return posts.map((post) => ({ postId: post.id }));
+}
+
 export function generateMetadata({ params }: { params: { postId: string } }) {
   const posts = getSortedPostsData();
   const { postId } = params;
 
   const post = posts.find((post) => post.id === postId);
 
+  if (!post) {
+    return { title: 'Post Not Found' };
+  }
+
   return {
-    title: post?.title || 'Post Not found',
+    title: post.title,
   };
 }
 
